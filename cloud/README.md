@@ -6,13 +6,13 @@
 * Comment on fait un validation par email en ligne?
 
 - Connexion :
-* On fait un authentification multifacteur c'est a dire on envoie un pin generer a un email donner et on verifie si le pin donner correspond avec le pin envoyer
+* On fait un authentification multifacteur c'est a dire on envoie un pin generer vers  un email donner et on verifie si le pin donner correspond avec le pin envoyer
 
 <!-- - Metre un rôle pour les utilisateur :
 * admin
 * membre simple  -->
 
-- Qu'est ce qu'on peut faire pour le Gestion du compte pour l'utiliateur?
+- Qu'est ce qu'on peut faire pour le Gestion du compte pour l'utiliateur ?
 
 - fonctionalités minimales:
 * durrée de vie des sessions (parametrable).
@@ -24,24 +24,46 @@
 
 ## 2eme partie-Conception:
 # BD:
-- Utilisateur(email,password,idD_Utilisateur).
-- DetailUtilisateur(nom,prenom,Date_naissance,telephone).
-- Session(token,date_create,date_exp).
-- Pin(pin,date_create,date_exp).
+- Utilisateur.
+- DetailUtilisateur.
+- Session.
 
-# interface Web Api postman :
-- login: 
+# Model
+- Utilisateur.
+- DetailUtilisateur.
+- Session.
+- Pin.
+
+# Repository
+- DetailUtilisateurRepository.
+- SessionRepository.
+- UtilisatuerRepository.
+
+# Service
+- DetailUtilisateurService.
+- EmailService.
+- SessionService.
+- UtilisateurService.
+
+# Util
+- BCryotUtils.
+
+# Controlleur:
+- loginControlleur: 
 1- Inscription:
-- envoyer pin to email.
+- envoyer pin to email(sendPin).
+- verification de pin (verifyPin).
 - enregistrer un Utilisateur.
 - enregistrer Detail Utilisateur.
 2- Connection:
-- envoyer pin to email.
-- validation pin.
+- validation de l'utiliasteur.
+- envoyer pin to email(sendPin).
+- validation pin(verifyPin).
+
 3- Accueil:
 - modification.
 - deconnection.
-
+- reinitialiter mdp.
 
 # fonctionalités:
 - validation via email
