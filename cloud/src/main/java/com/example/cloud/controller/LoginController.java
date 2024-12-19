@@ -1,6 +1,7 @@
 package com.example.cloud.controller;
 
 import com.example.cloud.model.DetailUtilisateur;
+import com.example.cloud.model.Parametre;
 import com.example.cloud.model.Pin;
 import com.example.cloud.model.Session;
 import com.example.cloud.model.Utilisateur;
@@ -9,7 +10,10 @@ import com.example.cloud.service.SessionService;
 import com.example.cloud.service.UtilisateurService;
 import com.example.cloud.util.BCryptUtils;
 import com.example.cloud.service.EmailService;
+import com.example.cloud.service.ParametreService;
+import com.example.cloud.service.RedisService;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,6 +28,11 @@ public class LoginController {
     private final DetailUtilisateurService detailUtilisateurService;
     private final SessionService sessionService;
     private final EmailService emailService;
+    @Autowired
+    private RedisService redisService;
+    private ParametreService parametreService;
+
+    
 
     // Stock temporaire pour le PIN généré
     private Pin currentPin;
@@ -34,13 +43,26 @@ public class LoginController {
         this.sessionService = ss;
         this.emailService = es;
     }
+    int idAko = 0;
+    Parametre parametre = parametreService.getById(idAko);
+    int tentative = parametre.getTentation();
+    String tentativeString = Integer.toString(tentative);
 
     @PostMapping("/send-pin")
     @ResponseBody
     public String sendPin(@RequestParam String email) {
         try {
+            // Vérifier si l'utilisateur existe
+            Utilisateur utilisateur = utilisateurService.getByEmail(email);
+            if (utilisateur == null) {
+                return "Aucun utilisateur trouvé pour cet email.";
+            }
+            int idAko = 0;
+            Parametre parametre = parametreService.getById(idAko);
+            String dPinString = parametre.getDPin();
+            int dPin = Integer.parseInt(dPinString);
             // Générer un PIN
-            currentPin = new Pin().generatePin();
+            currentPin = new Pin().generatePin(dPin);
             System.out.println(currentPin.getPin());
 
             // Envoyer l'email
@@ -55,15 +77,28 @@ public class LoginController {
 
     @PostMapping("/verify-pin")
     @ResponseBody
-    public String verifyPin(@RequestParam String enteredPin) {
+    public String verifyPin(
+        @RequestParam String email,
+        @RequestParam String enteredPin) {
         if (currentPin == null) {
             return "Aucun PIN n'a été généré.";
         }
-
+        Utilisateur utilisateur = utilisateurService.getByEmail(email);
+        if (utilisateur == null) {
+            return "Utilisateur non trouvé.";
+        }
+        String tentativeRestString = (String) redisService.getData("attempts" + email);
+        int tentative = Integer.parseInt(tentativeRestString);
         LocalDateTime now = LocalDateTime.now();
 
+        if(tentative == 0){
+            return "vous avez essayer tout votre tentative.";
+        }
         // Vérification si le PIN correspond
         if (!currentPin.getPin().equals(enteredPin)) {
+            tentative = tentative -1;
+            String tentativeString = Integer.toString(tentative);
+            redisService.updateData("attempts" + email, tentativeString);
             return "Le PIN saisi est incorrect.";
         }
 
@@ -115,31 +150,6 @@ public class LoginController {
 
         return "Utilisateur enregistrer correctement";
     }
-
-    // @PostMapping("/detail-Utilisateur")
-    // @ResponseBody
-    // public String detailUtilisateur(
-    //     @RequestBody String nom,
-    //     @RequestBody String prenom,
-    //     @RequestBody LocalDate dateNaissance,
-    //     @RequestBody String telephone
-    // ){
-    //     if(nom == null){
-    //         return "le nom est null";
-    //     }
-    //     if(prenom == null){
-    //         return "le prenom est null";
-    //     }
-    //     if(dateNaissance == null){
-    //         return "le dateNaissance est null";
-    //     }
-
-    //     DetailUtilisateur detailUtilisateur = new DetailUtilisateur(nom,prenom,telephone,dateNaissance);
-        
-    //     detailUtilisateurService.enregistrerDetailUtilisateur(detailUtilisateur);
-    //     return"detail Utilisateur Enregistrer";
-    // }
-
     @PostMapping("/login")
     @ResponseBody
     public String login(
@@ -152,13 +162,18 @@ public class LoginController {
             return "Votre mdp est vide";
         }
         Utilisateur utilisateurAko = utilisateurService.getByEmail(email);
+        int idAko = 0;
+            Parametre parametre = parametreService.getById(idAko);
+            String dSessionString = parametre.getDSession();
+            int dSession = Integer.parseInt(dSessionString);
         if (utilisateurAko == null){
             return "votre email est incorrecte";
         }
         String passwordCrypt = BCryptUtils.hashPassword(mdp);
         if(passwordCrypt == utilisateurAko.getPassword()){
-            Session sessionCreate = new Session(utilisateurAko);
+            Session sessionCreate = new Session(utilisateurAko, dSession);
             sessionService.enregistrerSession(sessionCreate);
+            redisService.updateData("attempts" + email, tentativeString);
             return "validation correcte";
         }
 

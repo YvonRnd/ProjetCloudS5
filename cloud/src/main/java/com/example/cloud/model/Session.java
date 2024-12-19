@@ -77,10 +77,11 @@ public class Session {
 
     public Session(){}
 
-    LocalDateTime now = LocalDateTime.now();
-    LocalDateTime expirationTime = now.plusSeconds(300);
+    
 
-    public Session(Utilisateur utilisateur){
+    public Session(Utilisateur utilisateur, int dSession){
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime expirationTime = now.plusSeconds(dSession);
         String tokenCreate = TokenGenerator.generateToken();
         this.setToken(tokenCreate);
         this.setDateCreate(now);

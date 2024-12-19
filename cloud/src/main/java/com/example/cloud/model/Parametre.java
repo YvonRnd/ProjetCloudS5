@@ -50,4 +50,19 @@ public class Parametre {
     public void setDSession(String dSession) {
         DSession = dSession;
     }
+    
+    public String getDPin() {
+        return DPin;
+    }
+
+    public void setDPin(String dPin) {
+        DPin = dPin;
+    }
+
+    public Parametre(){}
+    public Parametre (String DSession,String DPin,Integer tentation){
+        this.setDSession(DSession);
+        this.setDPin(DPin);
+        this.setTentation(tentation);
+    }
 }

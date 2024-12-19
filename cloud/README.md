@@ -34,20 +34,21 @@
 - DetailUtilisateur.(vita)
 - Session.(vita)
 - Pin.(vita)
-- Parametre.
+- Parametre.(vita)
 
 # Repository
 - DetailUtilisateurRepository.(vita)
 - SessionRepository.(vita)
 - UtilisatuerRepository.(vita)
-- ParametreRepository. 
+- ParametreRepository.(vita)
 
 # Service
 - DetailUtilisateurService.(vita)
 - EmailService.(vita)
 - SessionService.(vita)
 - UtilisateurService.(vita)
-- ParametreService.
+- ParametreService.(vita)
+- RedisService.(vita)
 
 # Util
 - BCryotUtils.(vita)
@@ -63,28 +64,29 @@
 2- Connection(Login):
 - envoyer pin to email(sendPin).(vita)
 - validation pin(verifyPin).(vita)
-- validation de l'utiliasteur.(a modifier: tenative)
+- validation de l'utiliasteur.(vita)
 
 - AccueilControlleur:
 3- Accueil:
-- validation Session.
-- modification.
-- deconnection.
-- reinitialiter mdp.
-- parametrage.
+- validation Session.(vita)
+- modification detail Utilisateur.(vita)
+- deconnection.(vita)
+- reinitialiter mdp. (vita)
+- parametrage.(viens data bd)
 
 # fonctionalités:
 - validation via email (vita)
 - validation email and mdp (vita)
 - generer pin avec delais (a modifier)
-- validation pin avec limite de tentation (a modifier) 
-- reinitialisation tentative 0
+- validation pin avec limite de tentation (a verifier) 
+- reinitialisation tentative 0 (vita)
 - generer token (vita)
 - Metre un session pour l'utilisteur (vita)
 - durabilité de session (a modifier)
-- modification details utilisateurs 
-- reinitialiser mdp
-- modifiacation parametre
+- modification details utilisateurs (a verifier)
+- reinitialiser mdp(vita)
+<!-- - modifiacation parametre() -->
+ 
 
 
 <!-- 
