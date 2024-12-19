@@ -70,4 +70,14 @@ public class DetailUtilisateur {
     public void setIdDetailUtilisateur(Integer idDetailUtilisateur) {
         this.idDetailUtilisateur = idDetailUtilisateur;
     }
+
+    public DetailUtilisateur(){}
+
+    public DetailUtilisateur(String nom,String penom,String telephone,LocalDate dateNaissance){
+        this.setNom(nom);
+        this.setPrenom(prenom);
+        this.setTelephone(telephone);
+        this.setDateNAissance(dateNaissance);
+    }
+
 }

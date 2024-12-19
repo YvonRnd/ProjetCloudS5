@@ -1,14 +1,12 @@
-# Utiliser l'image JDK 17
-FROM openjdk:17-jdk-slim
-
-# Définir le répertoire de travail
+# Étape 1 : Construire l'application
+FROM maven:3.9.4-eclipse-temurin-17 AS builder
 WORKDIR /app
+COPY . .
+RUN mvn clean package -DskipTests
 
-# Copier le fichier JAR dans l'image
-COPY target/*.jar app.jar
-
-# Exposer le port 8080
+# Étape 2 : Créer l'image exécutable
+FROM openjdk:17-jdk-slim
+WORKDIR /app
+COPY --from=builder /app/target/*.jar app.jar
 EXPOSE 8080
-
-# Démarrer l'application
 ENTRYPOINT ["java", "-jar", "app.jar"]

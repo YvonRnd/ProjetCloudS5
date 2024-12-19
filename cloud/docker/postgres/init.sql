@@ -9,8 +9,8 @@ CREATE TABLE Detail_Utilisateur(
 
 CREATE TABLE Parametre(
    id_Parametre SERIAL,
-   durréeSession VARCHAR(50)  NOT NULL,
-   durréePin VARCHAR(50)  NOT NULL,
+   durreSession VARCHAR(50)  NOT NULL,
+   durrePin VARCHAR(50)  NOT NULL,
    tentation INTEGER NOT NULL,
    PRIMARY KEY(id_Parametre)
 );

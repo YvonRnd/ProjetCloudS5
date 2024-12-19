@@ -39,9 +39,10 @@ public class Pin {
     public Pin () {
     }
 
-    public Pin generatePin() {
+    public Pin generatePin(int dPin) {
         Random random = new Random();
         StringBuilder generatedPin = new StringBuilder();
+
         
         // Génération de 6 chiffres aléatoires
         for (int i = 0; i < 6; i++) {
@@ -49,7 +50,7 @@ public class Pin {
         }
         
         LocalDateTime now = LocalDateTime.now();
-        LocalDateTime expirationTime = now.plusSeconds(90);
+        LocalDateTime expirationTime = now.plusSeconds(dPin);
 
         // Initialiser les champs
         this.pin = generatedPin.toString();
@@ -69,4 +70,5 @@ public class Pin {
                 ", dateExpiration=" + dateExpiration.format(formatter) +
                 '}';
     }
+
 }

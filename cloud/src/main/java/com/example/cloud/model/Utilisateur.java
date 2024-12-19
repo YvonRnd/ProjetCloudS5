@@ -7,6 +7,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 
@@ -24,6 +26,18 @@ public class Utilisateur {
 
     @Column(name = "password", nullable = false, length = 60) // BCrypt nécessite au moins 60 caractères
     private String password;
+
+    @ManyToOne
+    @JoinColumn(name =  "id_D_Utilisateur", nullable = false)
+    private DetailUtilisateur detailUtilisateur;
+
+    public DetailUtilisateur getDetailUtilisateur() {
+        return detailUtilisateur;
+    }
+
+    public void setDetailUtilisateur(DetailUtilisateur detailUtilisateur) {
+        this.detailUtilisateur = detailUtilisateur;
+    }
 
     // Getters et setters
     public Integer getIdUtilisateur() {
@@ -55,9 +69,11 @@ public class Utilisateur {
     }
 
     // Constructeur avec paramètres
-    public Utilisateur(String email, String password) {
-        this.email = email;
-        this.password = BCryptUtils.hashPassword(password);
+    public Utilisateur(String email, String password, DetailUtilisateur dU) {
+        this.setEmail(email);
+        String passwordCrypt = BCryptUtils.hashPassword(password);
+        this.setPassword(passwordCrypt);
+        this.setDetailUtilisateur(dU);
     }
 
     // Hook pour hachage du mot de passe avant persistance
