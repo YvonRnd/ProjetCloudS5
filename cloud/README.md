@@ -24,58 +24,67 @@
 
 ## 2eme partie-Conception:
 # BD:
-- Utilisateur.
-- DetailUtilisateur.
-- Session.
+- Utilisateur.(vita)
+- DetailUtilisateur.(vita)
+- Session.(vita)
+- Parametre.(vita)
 
 # Model
-- Utilisateur.
-- DetailUtilisateur.
-- Session.
-- Pin.
+- Utilisateur.(vita)
+- DetailUtilisateur.(vita)
+- Session.(vita)
+- Pin.(vita)
+- Parametre.
 
 # Repository
-- DetailUtilisateurRepository.
-- SessionRepository.
-- UtilisatuerRepository.
+- DetailUtilisateurRepository.(vita)
+- SessionRepository.(vita)
+- UtilisatuerRepository.(vita)
+- ParametreRepository. 
 
 # Service
-- DetailUtilisateurService.
-- EmailService.
-- SessionService.
-- UtilisateurService.
+- DetailUtilisateurService.(vita)
+- EmailService.(vita)
+- SessionService.(vita)
+- UtilisateurService.(vita)
+- ParametreService.
 
 # Util
-- BCryotUtils.
+- BCryotUtils.(vita)
+- TokenGenerator.(vita)
 
 # Controlleur:
 - loginControlleur: 
-1- Inscription:
-- envoyer pin to email(sendPin).
-- verification de pin (verifyPin).
-- enregistrer un Utilisateur.
-- enregistrer Detail Utilisateur.
-2- Connection:
-- validation de l'utiliasteur.
-- envoyer pin to email(sendPin).
-- validation pin(verifyPin).
+1- Inscription(signUp):
+- envoyer pin to email(sendPin).(vita)
+- verification de pin (verifyPin).(vita)
+- enregistrer un Utilisateur(email et mdp).(vita)
+- enregistrer Detail Utilisateur.(vita)
+2- Connection(Login):
+- envoyer pin to email(sendPin).(vita)
+- validation pin(verifyPin).(vita)
+- validation de l'utiliasteur.(a modifier: tenative)
 
+- AccueilControlleur:
 3- Accueil:
+- validation Session.
 - modification.
 - deconnection.
 - reinitialiter mdp.
+- parametrage.
 
 # fonctionalités:
-- validation via email
-- validation email and mdp
-- generer pin avec delais
-- validation pin avec limite de tentation 
+- validation via email (vita)
+- validation email and mdp (vita)
+- generer pin avec delais (a modifier)
+- validation pin avec limite de tentation (a modifier) 
 - reinitialisation tentative 0
-- generer token
-- Metre un session pour l'utilisteur
-- durabilité de session 
-- modification details utilisateurs
+- generer token (vita)
+- Metre un session pour l'utilisteur (vita)
+- durabilité de session (a modifier)
+- modification details utilisateurs 
 - reinitialiser mdp
+- modifiacation parametre
 
 
 <!-- 

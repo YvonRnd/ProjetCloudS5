@@ -2,6 +2,7 @@ package com.example.cloud.service;
 
 import org.springframework.stereotype.Service;
 
+import com.example.cloud.model.Session;
 import com.example.cloud.repository.SessionRepository;
 
 @Service
@@ -10,6 +11,10 @@ public class SessionService {
 
     public SessionService(SessionRepository sr){
         this.sessionRepository = sr;
+    }
+
+    public Session enregistrerSession(Session sessionCreate) {
+      return this.sessionRepository.save(sessionCreate);
     }
     
 }
