@@ -88,6 +88,9 @@
 <!-- - modifiacation parametre() -->
  
 
+- norme RestFul Api (vita)
+- documentation API via Swagger 
+
 
 <!-- 
 ## A faire:

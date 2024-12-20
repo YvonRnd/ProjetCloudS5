@@ -126,5 +126,28 @@ public class RedisService {
     public void deleteMultipleKeys(List<String> keys) {
         redisTemplate.delete(keys);
     }
+
+    // === Custom Methods for Authentication Attempts ===
+
+    // Get remaining attempts for a given user (email)
+    public int getAttempts(String email) {
+        String attemptsStr = (String) redisTemplate.opsForValue().get("attempts:" + email);
+        return (attemptsStr != null) ? Integer.parseInt(attemptsStr) : 0;
+    }
+
+    // Increment the number of attempts for a given user (email)
+    public void incrementAttempts(String email) {
+        redisTemplate.opsForValue().increment("attempts:" + email, 1);
+    }
+
+    // Reset the number of attempts for a given user (email)
+    public void resetAttempts(String email) {
+        redisTemplate.opsForValue().set("attempts:" + email, "0");
+    }
+
+    // Decrease the number of attempts for a given user (email)
+    public void decrementAttempts(String email) {
+        redisTemplate.opsForValue().increment("attempts:" + email, -1);
+    }
 }
 
