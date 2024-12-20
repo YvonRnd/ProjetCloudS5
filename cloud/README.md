@@ -24,58 +24,72 @@
 
 ## 2eme partie-Conception:
 # BD:
-- Utilisateur.
-- DetailUtilisateur.
-- Session.
+- Utilisateur.(vita)
+- DetailUtilisateur.(vita)
+- Session.(vita)
+- Parametre.(vita)
 
 # Model
-- Utilisateur.
-- DetailUtilisateur.
-- Session.
-- Pin.
+- Utilisateur.(vita)
+- DetailUtilisateur.(vita)
+- Session.(vita)
+- Pin.(vita)
+- Parametre.(vita)
 
 # Repository
-- DetailUtilisateurRepository.
-- SessionRepository.
-- UtilisatuerRepository.
+- DetailUtilisateurRepository.(vita)
+- SessionRepository.(vita)
+- UtilisatuerRepository.(vita)
+- ParametreRepository.(vita)
 
 # Service
-- DetailUtilisateurService.
-- EmailService.
-- SessionService.
-- UtilisateurService.
+- DetailUtilisateurService.(vita)
+- EmailService.(vita)
+- SessionService.(vita)
+- UtilisateurService.(vita)
+- ParametreService.(vita)
+- RedisService.(vita)
 
 # Util
-- BCryotUtils.
+- BCryotUtils.(vita)
+- TokenGenerator.(vita)
 
 # Controlleur:
 - loginControlleur: 
-1- Inscription:
-- envoyer pin to email(sendPin).
-- verification de pin (verifyPin).
-- enregistrer un Utilisateur.
-- enregistrer Detail Utilisateur.
-2- Connection:
-- validation de l'utiliasteur.
-- envoyer pin to email(sendPin).
-- validation pin(verifyPin).
+1- Inscription(signUp):
+- envoyer pin to email(sendPin).(vita)
+- verification de pin (verifyPin).(vita)
+- enregistrer un Utilisateur(email et mdp).(vita)
+- enregistrer Detail Utilisateur.(vita)
+2- Connection(Login):
+- envoyer pin to email(sendPin).(vita)
+- validation pin(verifyPin).(vita)
+- validation de l'utiliasteur.(vita)
 
+- AccueilControlleur:
 3- Accueil:
-- modification.
-- deconnection.
-- reinitialiter mdp.
+- validation Session.(vita)
+- modification detail Utilisateur.(vita)
+- deconnection.(vita)
+- reinitialiter mdp. (vita)
+- parametrage.(viens data bd)
 
 # fonctionalités:
-- validation via email
-- validation email and mdp
-- generer pin avec delais
-- validation pin avec limite de tentation 
-- reinitialisation tentative 0
-- generer token
-- Metre un session pour l'utilisteur
-- durabilité de session 
-- modification details utilisateurs
-- reinitialiser mdp
+- validation via email (vita)
+- validation email and mdp (vita)
+- generer pin avec delais (a modifier)
+- validation pin avec limite de tentation (a verifier) 
+- reinitialisation tentative 0 (vita)
+- generer token (vita)
+- Metre un session pour l'utilisteur (vita)
+- durabilité de session (a modifier)
+- modification details utilisateurs (a verifier)
+- reinitialiser mdp(vita)
+<!-- - modifiacation parametre() -->
+ 
+
+- norme RestFul Api (vita)
+- documentation API via Swagger 
 
 
 <!-- 

@@ -1,12 +1,16 @@
 package com.example.cloud.model;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
+
+import com.example.cloud.util.TokenGenerator;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -22,24 +26,36 @@ public class Session {
     private String token;
 
     @Column(name = "date_create")
-    private LocalDate dateCreate;
+    private LocalDateTime dateCreate;
 
     @Column(name = "date_exp")
-    private LocalDate dateExp;
+    private LocalDateTime dateExp;
 
-    public LocalDate getDateExp() {
+    @ManyToOne
+    @JoinColumn(name = "id_utilisateur",nullable = false )
+    private Utilisateur utilisateur;
+
+    public Utilisateur getUtilisateur() {
+        return utilisateur;
+    }
+
+    public void setUtilisateur(Utilisateur utilisateur) {
+        this.utilisateur = utilisateur;
+    }
+
+    public LocalDateTime getDateExp() {
         return dateExp;
     }
 
-    public void setDateExp(LocalDate dateExp) {
+    public void setDateExp(LocalDateTime dateExp) {
         this.dateExp = dateExp;
     }
 
-    public LocalDate getDateCreate() {
+    public LocalDateTime getDateCreate() {
         return getDateCreate();
     }
 
-    public void setDateCreate(LocalDate dateCreate) {
+    public void setDateCreate(LocalDateTime dateCreate) {
         this.dateCreate = dateCreate;
     }
 
@@ -59,5 +75,18 @@ public class Session {
         this.idSession = idSession;
     }
 
+    public Session(){}
+
+    
+
+    public Session(Utilisateur utilisateur, int dSession){
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime expirationTime = now.plusSeconds(dSession);
+        String tokenCreate = TokenGenerator.generateToken();
+        this.setToken(tokenCreate);
+        this.setDateCreate(now);
+        this.setDateExp(expirationTime);
+        this.setUtilisateur(utilisateur);
+    }
 
 }
