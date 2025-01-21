@@ -1,29 +1,38 @@
 CREATE TABLE Detail_Utilisateur(
-   Id_D_Utilisateur SERIAL,
+   id_D_Utilisateur SERIAL,
    nom VARCHAR(50)  NOT NULL,
    prenom VARCHAR(50)  NOT NULL,
    telephone VARCHAR(50) ,
    date_naissance DATE NOT NULL,
-   PRIMARY KEY(Id_D_Utilisateur)
+   PRIMARY KEY(id_D_Utilisateur)
+);
+
+CREATE TABLE Parametre(
+   id_Parametre SERIAL,
+   durreSession VARCHAR(50)  NOT NULL,
+   durrePin VARCHAR(50)  NOT NULL,
+   tentation INTEGER NOT NULL,
+   PRIMARY KEY(id_Parametre)
 );
 
 CREATE TABLE Utilisateur(
-   Id_Utilisateur SERIAL,
+   id_Utilisateur SERIAL,
    email VARCHAR(50)  NOT NULL,
    password VARCHAR(50)  NOT NULL,
-   Id_D_Utilisateur INTEGER NOT NULL,
-   PRIMARY KEY(Id_Utilisateur),
+   id_D_Utilisateur INTEGER NOT NULL,
+   PRIMARY KEY(id_Utilisateur),
+   UNIQUE(id_D_Utilisateur),
    UNIQUE(email),
-   FOREIGN KEY(Id_D_Utilisateur) REFERENCES Detail_Utilisateur(Id_D_Utilisateur)
+   FOREIGN KEY(id_D_Utilisateur) REFERENCES Detail_Utilisateur(id_D_Utilisateur)
 );
 
 CREATE TABLE Session(
-   Id_session SERIAL,
-   token VARCHAR(50) ,
-   date_create DATE,
-   date_exp DATE,
-   Id_Utilisateur INTEGER NOT NULL,
-   PRIMARY KEY(Id_session),
+   id_session SERIAL,
+   token VARCHAR(100) ,
+   date_create TIMESTAMP,
+   date_exp TIMESTAMP,
+   id_Utilisateur INTEGER NOT NULL,
+   PRIMARY KEY(id_session),
    UNIQUE(token),
-   FOREIGN KEY(Id_Utilisateur) REFERENCES Utilisateur(Id_Utilisateur)
+   FOREIGN KEY(id_Utilisateur) REFERENCES Utilisateur(id_Utilisateur)
 );
