@@ -1,0 +1,1 @@
+INSERT INTO Parametre (durreSession ,durrePin , tentation ) VALUES("3600","90",3);
